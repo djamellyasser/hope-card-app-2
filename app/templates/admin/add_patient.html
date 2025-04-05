@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2">إضافة مريض جديد</h1>
+    <a href="/admin/" class="btn btn-secondary">
+        العودة إلى القائمة
+    </a>
+</div>
+
+{% if error %}
+<div class="alert alert-danger">
+    {{ error }}
+</div>
+{% endif %}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST" action="/admin/add">
+            <div class="row">
+                <!-- Patient ID and Basic Info -->
+                <div class="col-md-6 mb-3">
+                    <label for="patient_id" class="form-label">رقم المريض *</label>
+                    <input type="text" class="form-control" id="patient_id" name="patient_id" 
+                           value="{{ data.patient_id if data else '' }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="full_name" class="form-label">الاسم الكامل *</label>
+                    <input type="text" class="form-control" id="full_name" name="full_name" 
+                           value="{{ data.full_name if data else '' }}" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="birth_date" class="form-label">تاريخ الميلاد *</label>
+                    <input type="date" class="form-control" id="birth_date" name="birth_date" 
+                           value="{{ data.birth_date if data else '' }}" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="gender" class="form-label">الجنس *</label>
+                    <select class="form-select" id="gender" name="gender" required>
+                        <option value="">اختر الجنس</option>
+                        <option value="ذكر" {% if data and data.gender == 'ذكر' %}selected{% endif %}>ذكر</option>
+                        <option value="أنثى" {% if data and data.gender == 'أنثى' %}selected{% endif %}>أنثى</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="blood_type" class="form-label">فصيلة الدم *</label>
+                    <select class="form-select" id="blood_type" name="blood_type" required>
+                        <option value="">اختر فصيلة الدم</option>
+                        <option value="A+" {% if data and data.blood_type == 'A+' %}selected{% endif %}>A+</option>
+                        <option value="A-" {% if data and data.blood_type == 'A-' %}selected{% endif %}>A-</option>
+                        <option value="B+" {% if data and data.blood_type == 'B+' %}selected{% endif %}>B+</option>
+                        <option value="B-" {% if data and data.blood_type == 'B-' %}selected{% endif %}>B-</option>
+                        <option value="AB+" {% if data and data.blood_type == 'AB+' %}selected{% endif %}>AB+</option>
+                        <option value="AB-" {% if data and data.blood_type == 'AB-' %}selected{% endif %}>AB-</option>
+                        <option value="O+" {% if data and data.blood_type == 'O+' %}selected{% endif %}>O+</option>
+                        <option value="O-" {% if data and data.blood_type == 'O-' %}selected{% endif %}>O-</option>
+                    </select>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="col-md-12 mb-3">
+                    <label for="address" class="form-label">العنوان *</label>
+                    <input type="text" class="form-control" id="address" name="address" 
+                           value="{{ data.address if data else '' }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="phone" class="form-label">رقم الهاتف *</label>
+                    <input type="text" class="form-control" id="phone" name="phone" 
+                           value="{{ data.phone if data else '' }}" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="emergency_contact" class="form-label">الاتصال في حالات الطوارئ *</label>
+                    <input type="text" class="form-control" id="emergency_contact" name="emergency_contact" 
+                           value="{{ data.emergency_contact if data else '' }}" required>
+                </div>
+                
+                <!-- Medical Info -->
+                <div class="col-md-12 mb-3">
+                    <label for="diagnosis" class="form-label">التشخيص الرئيسي *</label>
+                    <input type="text" class="form-control" id="diagnosis" name="diagnosis" 
+                           value="{{ data.diagnosis if data else '' }}" required>
+                </div>
+                
+                <div class="col-md-12 mb-3">
+                    <label for="chronic_diseases" class="form-label">الأمراض المزمنة (مفصولة بفواصل)</label>
+                    <input type="text" class="form-control" id="chronic_diseases_input" 
+                           value="{{ ','.join(data.chronic_diseases) if data and data.chronic_diseases else '' }}">
+                    <div id="chronic_diseases_tags" class="mt-2"></div>
+                    <div id="chronic_diseases_container"></div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="allergies" class="form-label">الحساسية (مفصولة بفواصل)</label>
+                    <input type="text" class="form-control" id="allergies_input" 
+                           value="{{ ','.join(data.allergies) if data and data.allergies else '' }}">
+                    <div id="allergies_tags" class="mt-2"></div>
+                    <div id="allergies_container"></div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label for="medications" class="form-label">الأدوية الحالية (مفصولة بفواصل)</label>
+                    <input type="text" class="form-control" id="medications_input" 
+                           value="{{ ','.join(data.medications) if data and data.medications else '' }}">
+                    <div id="medications_tags" class="mt-2"></div>
+                    <div id="medications_container"></div>
+                </div>
+                
+                <div class="col-md-12 mb-3">
+                    <label for="notes" class="form-label">ملاحظات إضافية</label>
+                    <textarea class="form-control" id="notes" name="notes" rows="3">{{ data.notes if data else '' }}</textarea>
+                </div>
+                
+                <div class="col-12 mt-3">
+                    <button type="submit" class="btn btn-primary">حفظ البيانات</button>
+                    <a href="/admin/" class="btn btn-secondary">إلغاء</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Handle tags input for chronic diseases, allergies and medications
+    document.addEventListener('DOMContentLoaded', function() {
+        function setupTagsInput(inputId, tagsId, containerId) {
+            const input = document.getElementById(inputId);
+            const tagsContainer = document.getElementById(tagsId);
+            const formContainer = document.getElementById(containerId);
+            
+            function updateTags() {
+                const tags = input.value.split(',').filter(tag => tag.trim() !== '');
+                
+                // Clear containers
+                tagsContainer.innerHTML = '';
+                formContainer.innerHTML = '';
+                
+                // Add tags
+                tags.forEach((tag, index) => {
+                    const tagEl = document.createElement('span');
+                    tagEl.className = 'badge bg-primary me-1 mb-1';
+                    tagEl.textContent = tag.trim();
+                    
+                    const removeBtn = document.createElement('span');
+                    removeBtn.className = 'ms-1 cursor-pointer';
+                    removeBtn.innerHTML = '&times;';
+                    removeBtn.onclick = function() {
+                        const newTags = tags.filter((_, i) => i !== index);
+                        input.value = newTags.join(',');
+                        updateTags();
+                    };
+                    
+                    tagEl.appendChild(removeBtn);
+                    tagsContainer.appendChild(tagEl);
+                    
+                    // Add hidden input for form submission
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = inputId.replace('_input', '');
+                    hiddenInput.value = tag.trim();
+                    formContainer.appendChild(hiddenInput);
+                });
+            }
+            
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ',') {
+                    e.preventDefault();
+                    updateTags();
+                }
+            });
+            
+            input.addEventListener('blur', updateTags);
+            
+            // Initialize on load
+            updateTags();
+        }
+        
+        setupTagsInput('chronic_diseases_input', 'chronic_diseases_tags', 'chronic_diseases_container');
+        setupTagsInput('allergies_input', 'allergies_tags', 'allergies_container');
+        setupTagsInput('medications_input', 'medications_tags', 'medications_container');
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center py-5">
+    <div class="col-md-8">
+        <div class="card glass">
+            <div class="card-header text-center gradient-animated text-white py-3">
+                <h3 class="mb-0">الملف الشخصي</h3>
+            </div>
+            
+            <div class="card-body p-4">
+                <div class="text-center mb-4">
+                    <div class="mb-3">
+                        <span class="neon-box d-inline-block rounded-circle p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </span>
+                    </div>
+                    <h2 class="mb-1">{{ user.name }}</h2>
+                    <p class="text-secondary">{{ user.role }}</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card hover-up">
+                            <div class="card-body p-4">
+                                <h5 class="card-title mb-3">معلومات الحساب</h5>
+                                <div class="mb-3">
+                                    <label class="form-label text-secondary">اسم المستخدم</label>
+                                    <div class="form-control bg-light">{{ user.username }}</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label text-secondary">المعرف</label>
+                                    <div class="form-control bg-light">{{ user.id }}</div>
+                                </div>
+                                <div class="d-grid mt-4">
+                                    <button class="btn btn-primary" disabled>تغيير كلمة المرور</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <div class="card hover-up">
+                            <div class="card-body p-4">
+                                <h5 class="card-title mb-3">أنشطة الحساب</h5>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>آخر تسجيل دخول</span>
+                                    <span class="text-primary">{{ now.strftime('%Y-%m-%d %H:%M') }}</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>عدد الجلسات النشطة</span>
+                                    <span class="badge badge-primary">1</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-3">
+                                    <span>الصلاحيات</span>
+                                    <span class="badge badge-success">{{ user.role }}</span>
+                                </div>
+                                <div class="d-grid mt-4">
+                                    <a href="/auth/logout" class="btn btn-danger">تسجيل الخروج</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-center mt-3">
+                    <a href="/admin/" class="btn btn-secondary">العودة للوحة التحكم</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

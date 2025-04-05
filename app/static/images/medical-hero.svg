@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
+  <style>
+    .medical-color { fill: #3b82f6; }
+    .accent-color { fill: #1e40af; }
+    .light-color { fill: #e0e7ff; }
+    .neutral-color { fill: #f5f7fa; }
+  </style>
+  
+  <!-- Background elements -->
+  <circle cx="250" cy="250" r="200" fill="#f9fafb" />
+  
+  <!-- Medical cross -->
+  <rect x="220" y="80" width="60" height="340" rx="10" class="medical-color" />
+  <rect x="80" y="220" width="340" height="60" rx="10" class="medical-color" />
+  
+  <!-- Circular elements -->
+  <circle cx="250" cy="250" r="70" class="light-color" stroke="#3b82f6" stroke-width="8" />
+  <circle cx="250" cy="250" r="40" class="accent-color" />
+  
+  <!-- Heart beat line -->
+  <path d="M80,250 L150,250 L170,200 L200,300 L230,180 L260,320 L290,250 L420,250" 
+        fill="none" stroke="#ef4444" stroke-width="8" stroke-linecap="round" />
+        
+  <!-- Decorative circles -->
+  <circle cx="150" cy="150" r="15" class="accent-color" opacity="0.7" />
+  <circle cx="350" cy="150" r="10" class="accent-color" opacity="0.5" />
+  <circle cx="150" cy="350" r="12" class="accent-color" opacity="0.6" />
+  <circle cx="350" cy="350" r="18" class="accent-color" opacity="0.8" />
+  
+  <!-- Medical symbols -->
+  <circle cx="120" cy="180" r="20" class="light-color" stroke="#3b82f6" stroke-width="3" />
+  <circle cx="380" cy="180" r="20" class="light-color" stroke="#3b82f6" stroke-width="3" />
+  <circle cx="120" cy="320" r="20" class="light-color" stroke="#3b82f6" stroke-width="3" />
+  <circle cx="380" cy="320" r="20" class="light-color" stroke="#3b82f6" stroke-width="3" />
+</svg> 

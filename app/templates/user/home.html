@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center py-5">
+    <h1 class="text-primary floating-animation">بطاقة الأمل</h1>
+    <p class="mb-4 highlight-text">البحث عن معلومات المريض</p>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-12 col-md-7">
+        <div class="card shadow">
+            <div class="card-header gradient-bg text-white">
+                <h5 class="m-0">بحث عن مريض</h5>
+            </div>
+            <div class="card-body p-4">
+                {% if error %}
+                <div class="alert alert-danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    {{ error }}
+                </div>
+                {% endif %}
+                
+                <form method="POST" action="/user/search" class="mb-0">
+                    <div class="form-group mb-3">
+                        <label for="patient_id" class="form-label">رقم المريض</label>
+                        <div class="d-flex">
+                            <input type="text" class="form-control" 
+                                   name="patient_id" id="patient_id" 
+                                   placeholder="أدخل رقم المريض هنا" required>
+                            <button class="btn btn-primary ms-2" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-1">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                بحث
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card mt-4 shadow glass-card">
+            <div class="card-body p-4">
+                <h5 class="card-title mb-3">تعليمات البحث</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-3 d-flex align-items-start">
+                        <span class="badge-primary badge-circle me-2">1</span>
+                        <div>يجب إدخال رقم المريض بالكامل وبشكل صحيح.</div>
+                    </li>
+                    <li class="mb-3 d-flex align-items-start">
+                        <span class="badge-primary badge-circle me-2">2</span>
+                        <div>يمكنك الحصول على رقم المريض من المستشفى أو المركز الطبي.</div>
+                    </li>
+                    <li class="d-flex align-items-start">
+                        <span class="badge-primary badge-circle me-2">3</span>
+                        <div>في حالة وجود أي مشكلة، يرجى التواصل مع إدارة المستشفى.</div>
+                    </li>
+                </ul>
+                
+                <div class="alert alert-primary mt-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    المعلومات المسترجعة تعرض بياناتك الطبية الأساسية فقط
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.badge-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #3b82f6;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+</style>
+{% endblock %} 

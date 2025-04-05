@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بطاقة الأمل | Hope Card</title>
+    
+    <!-- Cairo Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/custom.css') }}">
+    
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="/" class="logo">بطاقة الأمل</a>
+                <nav class="main-nav">
+                    <button class="menu-toggle" id="menuToggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="/">الرئيسية</a></li>
+                        <li><a href="/user/">بحث عن مريض</a></li>
+                        <li><a href="/auth/login">لوحة التحكم</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>بطاقة الأمل &copy; {{ now.year if now else 2023 }} - جميع الحقوق محفوظة</p>
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', path='/js/custom.js') }}"></script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html> 

@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2">بيانات المريض</h1>
+    <div>
+        <a href="/admin/patient/{{ patient.patient_id }}/edit" class="btn btn-warning">
+            تعديل البيانات
+        </a>
+        <a href="/admin/" class="btn btn-secondary">
+            العودة إلى القائمة
+        </a>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">المعلومات الأساسية</h5>
+        <span class="badge bg-primary">{{ patient.patient_id }}</span>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="fw-bold">الاسم الكامل:</label>
+                <p>{{ patient.full_name }}</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="fw-bold">تاريخ الميلاد:</label>
+                <p>{{ patient.birth_date }}</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="fw-bold">الجنس:</label>
+                <p>{{ patient.gender }}</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="fw-bold">فصيلة الدم:</label>
+                <p>{{ patient.blood_type }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-white">
+        <h5 class="mb-0">معلومات الاتصال</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label class="fw-bold">العنوان:</label>
+                <p>{{ patient.address }}</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="fw-bold">رقم الهاتف:</label>
+                <p>{{ patient.phone }}</p>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label class="fw-bold">الاتصال في حالات الطوارئ:</label>
+                <p>{{ patient.emergency_contact }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-white">
+        <h5 class="mb-0">المعلومات الطبية</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <label class="fw-bold">التشخيص الرئيسي:</label>
+                <p>{{ patient.diagnosis }}</p>
+            </div>
+            
+            <div class="col-md-12 mb-3">
+                <label class="fw-bold">الأمراض المزمنة:</label>
+                <div>
+                    {% if patient.chronic_diseases %}
+                        {% for disease in patient.chronic_diseases %}
+                            <span class="badge bg-secondary me-1">{{ disease }}</span>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">لا توجد أمراض مزمنة مسجلة</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+                <label class="fw-bold">الحساسية:</label>
+                <div>
+                    {% if patient.allergies %}
+                        {% for allergy in patient.allergies %}
+                            <span class="badge bg-danger me-1">{{ allergy }}</span>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">لا توجد حساسية مسجلة</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+                <label class="fw-bold">الأدوية الحالية:</label>
+                <div>
+                    {% if patient.medications %}
+                        {% for medication in patient.medications %}
+                            <span class="badge bg-info me-1">{{ medication }}</span>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">لا توجد أدوية مسجلة</p>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if patient.notes %}
+            <div class="col-md-12 mb-3">
+                <label class="fw-bold">ملاحظات إضافية:</label>
+                <p>{{ patient.notes }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end">
+    <a href="/admin/patient/{{ patient.patient_id }}/delete" class="btn btn-danger" 
+       onclick="return confirm('هل أنت متأكد من حذف بيانات هذا المريض؟')">
+        حذف بيانات المريض
+    </a>
+</div>
+{% endblock %} 
